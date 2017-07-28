@@ -18,6 +18,7 @@ class CorsairsController < ApplicationController
   def update
   	@corsair = Corsair.find(params[:id])
   	if @corsair.update(corsair_params)
+  		flash[:success] = "Corsair #{@corsair.first_name} has been modified"
   		redirect_to corsair_path(@corsair)
   	else
   		render :edit
@@ -27,6 +28,7 @@ class CorsairsController < ApplicationController
   def create
   	@corsair = Corsair.new(corsair_params)
   	if @corsair.save
+  		flash[:success] = "New corsair #{@corsair.first_name} successfully created!"
   		redirect_to @corsair
   	else
   		render :new
@@ -41,6 +43,7 @@ class CorsairsController < ApplicationController
 
 private
   def corsair_params
-  	params.require(:corsair).permit(:first_name, :age)
+  	params.require(:corsair).permit(:first_name, :age, :bio, :slack_handle, :github_handle, :likeness)
   end
+
 end
